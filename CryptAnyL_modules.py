@@ -12,26 +12,29 @@ import traceback
 import os
 import shutil
 from textwrap import wrap
-from tkinter import Tk
-from tkinter.filedialog import askopenfilename
+try:
+    from tkinter import Tk
+    from tkinter.filedialog import askopenfilename
+except:
+    pass
 import random
 import re
 import time
-import selenium
+try:
+    import selenium
+    from selenium import webdriver
+    # from selenium.webdriver.common.keys import Keys
+    # from selenium.webdriver.chrome.options import Options
+    # opts = Options()
+    # opts.add_argument("user-agent=")
+except:
+    pass
 import sys
 from sys import exc_info
 from traceback import extract_tb
 
-from selenium import webdriver
-
-#from selenium.webdriver.common.keys import Keys
 
 
-
-
-# from selenium.webdriver.chrome.options import Options
-# opts = Options()
-# opts.add_argument("user-agent=")
 
 def encryptingSalt(i_password, text):
     # Encrypting str by password
