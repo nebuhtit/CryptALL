@@ -3,8 +3,10 @@
 from CryptAnyL_modules import *
 import atexit
 
+
+
 try:
-    os.mkdir(os.getcwd() + "/CryptALL")
+    os.mkdir(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with)
 except FileExistsError:
     pass
 
@@ -45,7 +47,10 @@ try:
     def Enter_Entery_password(event=None):
 
         try:
-            pasw = Entry_password.get()
+            try:
+                pasw = first_password
+            except:
+                pasw = Entry_password.get()
             privatkey = dec_F_import(pasw, 'personalresAA.txt')
             try:
 
@@ -135,7 +140,7 @@ try:
                         Entry_decrypt_file.delete(0, 'end')
                         Entry_decrypt_file.configure(bg='LightGreen')
                         Entry_decrypt_file.configure(state=DISABLED)
-                        targetDirectory = os.path.dirname(str("CryptALL/"+'Collection/'+re.sub(r'.prcp', '', os.path.basename(pathh2))))
+                        targetDirectory = os.path.dirname(str("CryptALL/" + who_do_u_want_to_chat_with +'/Collection/'+re.sub(r'.prcp', '', os.path.basename(pathh2))))
                         call(["open", targetDirectory])
 
 
@@ -229,7 +234,7 @@ try:
                     pathh5 = askopenfilename(title="Select file")
                     defile(pathh5, pasw)
                     targetDirectory = os.path.dirname(
-                        str("CryptALL/" + 'Down_files/' + re.sub(r'.prcp', '', os.path.basename(pathh5))))
+                        str("CryptALL/" + who_do_u_want_to_chat_with + '/Down_files/' + re.sub(r'.prcp', '', os.path.basename(pathh5))))
                     print(targetDirectory)
                     call(["open", targetDirectory])
 
@@ -349,7 +354,7 @@ try:
                     pathh4 = askopenfilename(title="Select file")
                     enfile(pathh4, pasw)
                     targetDirectory = os.path.dirname(
-                        str("CryptALL/" + 'For_sent/' + re.sub(r'.prcp', '', os.path.basename(pathh4))))
+                        str("CryptALL/"  + who_do_u_want_to_chat_with + '/For_sent/' + re.sub(r'.prcp', '', os.path.basename(pathh4))))
                     call(["open", targetDirectory])
                     Text_correspondence.insert(1.0, 'In the opened window, an encrypted file, send it\nВ открывшемся окне заш. файл, отправьте его\n\n')
 
@@ -553,7 +558,7 @@ try:
                             Entry_decrypt_file.configure(bg='LightGreen')
                             Entry_decrypt_file.configure(state=DISABLED)
                             targetDirectory = os.path.dirname(
-                                str("CryptALL/" + 'Collection/' + re.sub(r'.prcp', '', os.path.basename(pathh2))))
+                                str("CryptALL/" + who_do_u_want_to_chat_with + '/Collection/' + re.sub(r'.prcp', '', os.path.basename(pathh2))))
                             call(["open", targetDirectory])
 
 
@@ -640,7 +645,7 @@ try:
                         pathh5 = askopenfilename(title="Select file")
                         defile(pathh5, pasw)
                         targetDirectory = os.path.dirname(
-                            str("CryptALL/" + 'Down_files/' + re.sub(r'.prcp', '', os.path.basename(pathh5))))
+                            str("CryptALL/" + who_do_u_want_to_chat_with + '/Down_files/' + re.sub(r'.prcp', '', os.path.basename(pathh5))))
                         print(targetDirectory)
                         call(["open", targetDirectory])
 
@@ -757,7 +762,7 @@ try:
                         pathh4 = askopenfilename(title="Select file")
                         enfile(pathh4, pasw)
                         targetDirectory = os.path.dirname(
-                            str("CryptALL/" + 'For_sent/' + re.sub(r'.prcp', '', os.path.basename(pathh4))))
+                            str("CryptALL/" + who_do_u_want_to_chat_with + '/For_sent/' + re.sub(r'.prcp', '', os.path.basename(pathh4))))
                         call(["open", targetDirectory])
                         Text_correspondence.insert(1.0,
                                                    'In the opened window, an encrypted file, send it\nВ открывшемся окне заш. файл, отправьте его\n\n')
@@ -820,7 +825,10 @@ try:
             root_main.mainloop()
 
     def Create_Entery_password(event=None):
-        pasw = Entry_password.get()
+        try:
+            pasw = first_password
+        except:
+            pasw = Entry_password.get()
         createNewkeys('AA', pasw)
         pubkeyFromFile = b64in(dec_F_import(pasw, 'publicresAA.txt'))
         root.destroy()
@@ -967,7 +975,7 @@ try:
                     Entry_decrypt_file.configure(bg='LightGreen')
                     Entry_decrypt_file.configure(state=DISABLED)
                     targetDirectory = os.path.dirname(
-                        str("CryptALL/" + 'Collection/' + re.sub(r'.prcp', '', os.path.basename(pathh2))))
+                        str("CryptALL/"  + who_do_u_want_to_chat_with + '/Collection/' + re.sub(r'.prcp', '', os.path.basename(pathh2))))
                     call(["open", targetDirectory])
 
 
@@ -1053,7 +1061,7 @@ try:
                 pathh5 = askopenfilename(title="Select file")
                 defile(pathh5, pasw)
                 targetDirectory = os.path.dirname(
-                    str("CryptALL/" + 'Down_files/' + re.sub(r'.prcp', '', os.path.basename(pathh5))))
+                    str("CryptALL/"  + who_do_u_want_to_chat_with + '/Down_files/' + re.sub(r'.prcp', '', os.path.basename(pathh5))))
                 print(targetDirectory)
                 call(["open", targetDirectory])
 
@@ -1170,7 +1178,7 @@ try:
                 pathh4 = askopenfilename(title="Select file")
                 enfile(pathh4, pasw)
                 targetDirectory = os.path.dirname(
-                    str("CryptALL/" + 'For_sent/' + re.sub(r'.prcp', '', os.path.basename(pathh4))))
+                    str("CryptALL/"  + who_do_u_want_to_chat_with + '/For_sent/' + re.sub(r'.prcp', '', os.path.basename(pathh4))))
                 call(["open", targetDirectory])
                 Text_correspondence.insert(1.0,
                                            'In the opened window, an encrypted file, send it\nВ открывшемся окне заш. файл, отправьте его\n\n')
@@ -1244,7 +1252,7 @@ try:
 
     # First check for existing privat key in file _
     try:
-        open('CryptALL/personalresAA.txt', 'r')
+        open('CryptALL/' + who_do_u_want_to_chat_with + '/personalresAA.txt', 'r')
         Title_password_Entery = 'Enter Password'
         Entry_password.bind('<Return>', Enter_Entery_password)
     except FileNotFoundError as e:
@@ -1269,7 +1277,7 @@ try:
     root.mainloop()
 
 except:
-    print(traceback.format_exc())
+    # print(traceback.format_exc())
 
     pass
 
@@ -1287,7 +1295,7 @@ def m():
     xpathSave = ''
     print(str('-h = list of commands; список команд'))
     try:
-        os.mkdir(os.getcwd()+"/CryptALL")
+        os.mkdir(os.getcwd()+"/CryptALL/" + who_do_u_want_to_chat_with)
     except FileExistsError:
         pass
 
@@ -1345,12 +1353,20 @@ def m():
     Автор не несет ответсвенность за потерю данных при использования. Пользуясь программой, пользователь принимает полную ответственность за все последствия на себя. 
     Автор настоятельно призывает использовать прогрмму только с благими намериниями.
     """)
+            check_folders_for_empty = listdir(os.getcwd() + "/CryptALL/")
+            check_folders_for_empty.remove('.DS_Store')
+            for check_folder in check_folders_for_empty:
+                if listdir(os.getcwd() + "/CryptALL/" + check_folder) == []:
+                    print("    "+check_folder, 'is empty')
             what_to_do = 'continue'
 
         if str(inputt) == '-newkeys':
             aaaaa = True
             while aaaaa == True:
-                pasw = input('Create new password:')
+                try:
+                    pasw = first_password
+                except:
+                    pasw = input('Create new password:')
                 if str(pasw) == '-h' or str(pasw) == '-newkeys' or str(pasw) == '-q' or str(pasw) == '-mypublic':
                     uslovia(str(pasw))
                     continue
@@ -1365,7 +1381,7 @@ def m():
                     # continue
                     break
         if str(inputt) == '-q':
-            quit()
+            sys.exit()
 
         if str(inputt) == '-l':
             what_to_do = 'continue'
@@ -1506,37 +1522,37 @@ def m():
         if str(inputt) == '-clearall':
             # Clear keys of privat public fiend also Down_files For_sent
             try:
-                os.remove(str(os.getcwd() + '/' + 'personalres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/personalres' + who + '.txt'))
                 print('privat cleared, but check in folder')
-                os.remove(str(os.getcwd() + '/' + 'publicres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/publicres' + who + '.txt'))
                 print('pub cleared, but check in folder')
-                os.remove(str(os.getcwd() + '/' + 'friendsres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/friendsres' + who + '.txt'))
                 print('friends cleared, but check in folder')
-                os.remove(str(os.getcwd() + '/' + 'sl.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/sl.txt'))
                 print('sl removed')
             except Exception as e:
                 print(extract_tb(exc_info()[2])[0][1], e)
             try:
-                shutil.rmtree(str(os.getcwd() + '/' + 'Down_files'))
+                shutil.rmtree(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/Down_files'))
             except OSError as e:
                 print("%s : %s" % ('Down_files', e.strerror))
                 pass
             try:
-                shutil.rmtree(str(os.getcwd() + '/' + 'For_sent'))
+                shutil.rmtree(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/For_sent'))
             except OSError as e:
                 print("%s : %s" % ('For_sent', e.strerror))
                 pass
             try:
-                shutil.rmtree(str(os.getcwd() + '/' + 'Collection'))
+                shutil.rmtree(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/Collection'))
             except OSError as e:
                 pass
             what_to_do = 'continue'
         if str(inputt) == 'savlsavl':
             try:
-                os.remove(str(os.getcwd() + '/' + 'personalres' + who + '.txt'))
-                os.remove(str(os.getcwd() + '/' + 'publicres' + who + '.txt'))
-                os.remove(str(os.getcwd() + '/' + 'sl.txt'))
-                os.remove(str(os.getcwd() + '/' + 'friendsres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/personalres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/publicres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/sl.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/friendsres' + who + '.txt'))
             except:
                 print('_')
             print('pasw is:')
@@ -1544,15 +1560,15 @@ def m():
             what_to_do = 'continue'
 
             try:
-                shutil.rmtree(str(os.getcwd() + '/' + 'For_sent'))
+                shutil.rmtree(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/For_sent'))
             except OSError as e:
                 pass
             try:
-                shutil.rmtree(str(os.getcwd() + '/' + 'For_sent'))
+                shutil.rmtree(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/For_sent'))
             except OSError as e:
                 pass
             try:
-                shutil.rmtree(str(os.getcwd() + '/' + 'Collection'))
+                shutil.rmtree(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/Collection'))
             except OSError as e:
                 pass
             what_to_do = 'continue'
@@ -1560,7 +1576,7 @@ def m():
         if str(inputt) == '-cl-f':
             # clear friend's key
             try:
-                os.remove(str(os.getcwd() + '/' + 'friendsres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/friendsres' + who + '.txt'))
                 print('friends cleared, but check in folder')
             except Exception as e:
                 print(extract_tb(exc_info()[2])[0][1], e)
@@ -1569,7 +1585,7 @@ def m():
         if str(inputt) == '-cl-pr':
             # clear privat key
             try:
-                os.remove(str(os.getcwd() + '/' + 'personalres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/personalres' + who + '.txt'))
                 print('privat cleared, but check in folder')
             except Exception as e:
                 print(extract_tb(exc_info()[2])[0][1], e)
@@ -1578,9 +1594,9 @@ def m():
         if str(inputt) == '-cl-ppr':
             # clear privat public keys
             try:
-                os.remove(str(os.getcwd() + '/' + 'personalres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/personalres' + who + '.txt'))
                 print('privat cleared, but check in folder')
-                os.remove(str(os.getcwd() + '/' + 'publicres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/publicres' + who + '.txt'))
                 print('pub cleared, but check in folder')
             except Exception as e:
                 print(extract_tb(exc_info()[2])[0][1], e)
@@ -1589,7 +1605,7 @@ def m():
         if str(inputt) == '-cl-p':
             # clear public key
             try:
-                os.remove(str(os.getcwd() + '/' + 'publicres' + who + '.txt'))
+                os.remove(str(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/publicres' + who + '.txt'))
                 print('pub cleared, but check in folder')
             except Exception as e:
                 print(extract_tb(exc_info()[2])[0][1], e)
@@ -1668,7 +1684,7 @@ def m():
             except:
                 pass
         if str(inputt) == '-d':
-            with open(os.getcwd() + "/CryptALL/" + 'for_driver.txt', 'rb') as f:
+            with open(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/for_driver.txt', 'rb') as f:
                 f.read()
         return what_to_do
         # continue
@@ -1677,7 +1693,7 @@ def m():
     q = True
     # First check for existing privat key in file _
     try:
-        open('CryptALL/personalresAA.txt', 'r')
+        open('CryptALL/' + who_do_u_want_to_chat_with +'/personalresAA.txt', 'r')
     except FileNotFoundError as e:
         # pasw, what_to_do = ifif('-newkeys', who)
         uslovia('-newkeys')
@@ -1707,7 +1723,7 @@ def m():
             continue
 
     try:
-        with open('CryptALL/for_driver.txt', 'r') as f:
+        with open('CryptALL/'+ who_do_u_want_to_chat_with + '/for_driver.txt', 'r') as f:
             for_drive = f.read()
         uslovia('-l')
     except:
@@ -1825,14 +1841,16 @@ def m():
                     print(":(")
                 print(str(F_encrypted_m))
         except:
-            print(traceback.format_exc())
+            # print(traceback.format_exc())
             #print("Ошибка: %s : %s" % (e, e.strerror))
             # traceback.print_exception(*exc_info)
             # del exc_info
             continue
-while True:
+number_of_Error = 0
+while number_of_Error != 10:
     try:
         m()
+        time.sleep(0.1)
     except:
         print('\nSomething was wrong \nRestarted\n')
         try:
@@ -1842,7 +1860,7 @@ while True:
 
             os.remove(re.sub('.prcp', '', path_to_auto_open_file))
         except:
-            print(traceback.format_exc())
+            # print(traceback.format_exc())
             pass
         continue
 
