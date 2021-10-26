@@ -1278,7 +1278,8 @@ try:
     root.mainloop()
 
 except:
-    print(traceback.format_exc())
+    if traceback_print == True:
+        print(traceback.format_exc())
 
     pass
 
@@ -1419,6 +1420,8 @@ def m():
                 try:
                     #print(extract_tb(exc_info()[2])[0][1], e)
                     optionsForDriver = input('Past options (pathToDr link xpathWriteOr"_"forOld xpathSaveOr"_"forOld) or "_ puthtoserver.txt":')
+                    if optionsForDriver =='' or optionsForDriver == '\n':
+                        return 'continue'
                     try:
                         pasw = first_password
                     except:
@@ -1648,6 +1651,7 @@ def m():
                     print('password is not correct or file with mistake, try again.')
                     what_to_do = 'continue'
                     continue
+            return 'continue'
 
         if str(inputt) == '-kfriend':
             pasw = getpass.getpass()
@@ -1696,11 +1700,16 @@ def m():
         if str(inputt) == '-d':
             try:
                 with open(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/for_driver.txt', 'r') as f:
-                    f.read()
+                    F = f.read()
+                    if F != '':
+                        return 'break'
+                    else:
+                        uslovia('-l')
             except:
                 with open(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/for_driver.txt', 'w') as f:
                     f.write('')
                     uslovia('-l')
+
         if str(inputt) == '-d-del':
             with open(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/for_driver.txt', 'w') as f:
                 f.write('')
@@ -1758,14 +1767,16 @@ def m():
             try:
                 DRIVE(pathToDr, link)
             except:
-                print(traceback.format_exc())
+                if traceback_print == True:
+                    print(traceback.format_exc())
                 # print(extract_tb(exc_info()[2])[0][1], e)
                 # traceback.print_exception(*exc_info)
                 # del exc_info
                 print("Driver couldn't start, check options or version of driver")
                 driver = False
     except:
-        print(traceback.format_exc())
+        if traceback_print == True:
+            print(traceback.format_exc())
         pass
 
     pubkeyFromFile = b64in(dec_F_import(pasw, 'publicresAA.txt'))
@@ -1816,6 +1827,8 @@ def m():
                 INP_Fkeys = re.sub(r'\s', '', input("Past here friend's public key:\n"))
 
             usl = uslovia(INP_Fkeys)
+            if INP_Fkeys == '' or INP_Fkeys == '\n' or INP_Fkeys == '-d' or INP_Fkeys == '-l' or INP_Fkeys == '-h':
+                continue
             if usl == 'continue':
                 continue
             elif usl == 'break':
@@ -1879,9 +1892,11 @@ def m():
                     F_encrypted_m = de(INP_Fmessage, privatkey)
                 except:
                     print(":(")
-                print(str(F_encrypted_m))
+                if driver == False:
+                    print(str(F_encrypted_m))
         except:
-            print(traceback.format_exc())
+            if traceback_print == True:
+                print(traceback.format_exc())
             #print("Ошибка: %s : %s" % (e, e.strerror))
             # traceback.print_exception(*exc_info)
             # del exc_info
@@ -1900,7 +1915,8 @@ while number_of_Error != 10:
 
             os.remove(re.sub('.prcp', '', path_to_auto_open_file))
         except:
-            print(traceback.format_exc())
+            if traceback_print == True:
+                print(traceback.format_exc())
             pass
         continue
 
