@@ -12,9 +12,11 @@ import traceback
 import os
 import shutil
 from textwrap import wrap
+traceback_print = False
 try:
     from tkinter import Tk
     from tkinter.filedialog import askopenfilename
+    traceback_print = True
 except:
     pass
 import random
@@ -603,7 +605,8 @@ while True:
         # print(who_do_u_want_to_chat_with)
         break
     except:
-        # print(traceback.format_exc())
+        if traceback_print == True:
+            print(traceback.format_exc())
         continue
 
 
