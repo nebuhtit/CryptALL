@@ -32,6 +32,9 @@ except:
 import sys
 from sys import exc_info
 from traceback import extract_tb
+import warnings
+warnings.filterwarnings("ignore")
+global who_do_u_want_to_chat_with
 
 
 
@@ -111,7 +114,7 @@ def decryptingSalt(i_password, enc_text):
 def creating_Salt(length):
     a = os.urandom(length)
     #print(a)
-    with open(os.getcwd()+"/CryptALL/"+'sl.txt', 'wb') as f:
+    with open(os.getcwd()+"/CryptALL/" +'sl.txt', 'wb') as f:
         f.write(a)
     #encSalt_byPass('sl.txt', pasw)
 
@@ -120,12 +123,12 @@ def creating_Salt2():
     #print(a)
     s, t = encryptingSalt('123', a)
     #print(t)
-    with open(os.getcwd()+"/CryptALL/"+'sl.txt', 'wb') as f:
+    with open(os.getcwd()+"/CryptALL/" + 'sl.txt', 'wb') as f:
         f.write(t)
 # creating_Salt2()
 
 def reading_Salt():
-    with open(os.getcwd()+"/CryptALL/"+'sl.txt', 'rb') as f:
+    with open(os.getcwd()+"/CryptALL/" + 'sl.txt', 'rb') as f:
         f = f.read()
     t = decryptingSalt('123', f)
     #print(type(t))
@@ -284,7 +287,9 @@ def decrypting(i_password, enc_text):
     f = Fernet(key)
     o_enc_t = enc_text
     encod_enc_t = o_enc_t.encode('utf-8')
+    # print(encod_enc_t)
     b_encod_enc_t = base64.b64decode(encod_enc_t)
+
     # print("b_encod_enc_t: ", b_encod_enc_t)
 
     decryptedtext = f.decrypt(b_encod_enc_t)
@@ -302,14 +307,14 @@ def enc_F_save(password, stri, name):
     password = str(password)
     stri = str(stri)
     salt, encryptedtext = encrypting(password, stri)
-    with open(str(os.getcwd()+'/CryptALL/'+str(name)), 'w') as f:
+    with open(str(os.getcwd()+'/CryptALL/' + who_do_u_want_to_chat_with + '/' + str(name)), 'w') as f:
         f.write(str(encryptedtext))
 #enc_F_save('123', privkey)
 
 def dec_F_import(password, file) -> object:
     # Load data from file and decrypts it by password
     password = str(password)
-    with open(str(os.getcwd()+'/CryptALL/'+str(file)), 'r') as ff:
+    with open(str(os.getcwd()+'/CryptALL/' + who_do_u_want_to_chat_with + '/' + str(file)), 'r') as ff:
         f = ff.read()
     decryptedtext = decrypting(password, f)
     return decryptedtext
@@ -331,7 +336,7 @@ def createNewkeys(NIK, pasw):
 def enfile(FileForEnc, General_Pasw):
     # ENcrypting file
     try:
-        os.mkdir(os.getcwd()+"/CryptALL/"+"For_sent")
+        os.mkdir(os.getcwd()+"/CryptALL/" + who_do_u_want_to_chat_with +"/For_sent")
     except FileExistsError:
         pass
     FileForEnc = str(FileForEnc)
@@ -346,7 +351,7 @@ def enfile(FileForEnc, General_Pasw):
     res = fernet.encrypt(ff)
     #print("res: ", res)
     resANDkey = str(str(res.decode('utf8'))+",,,"+str(key_for_file)).encode('utf8')
-    with open(str("CryptALL/"+'For_sent/'+os.path.basename(FileForEnc)+'.prcp'), 'wb') as f:
+    with open(str("CryptALL/" + who_do_u_want_to_chat_with +'/For_sent/'+os.path.basename(FileForEnc)+'.prcp'), 'wb') as f:
         f.write(resANDkey)
     #key = base64.urlsafe_b64encode(key).decode('utf8')
     return res
@@ -355,7 +360,7 @@ def enfile(FileForEnc, General_Pasw):
 def defile(FileForDec, General_Pasw):
     # DEcrypting file
     try:
-        os.mkdir(os.getcwd()+"/CryptALL/"+"Down_files")
+        os.mkdir(os.getcwd()+"/CryptALL/" + who_do_u_want_to_chat_with +"/Down_files")
     except FileExistsError:
         pass
     with open(str(FileForDec), 'rb') as f:
@@ -369,7 +374,7 @@ def defile(FileForDec, General_Pasw):
 
 
     fernet = Fernet(key)
-    name = "CryptALL/"+'Down_files/' + re.sub(r'.prcp', '', os.path.basename(FileForDec))
+    name = "CryptALL/" + who_do_u_want_to_chat_with +'/Down_files/' + re.sub(r'.prcp', '', os.path.basename(FileForDec))
     decrypted_file = fernet.decrypt(encrypted_file)
     with open(name, 'wb') as f:
         f.write(decrypted_file)
@@ -404,10 +409,10 @@ def encF_byPass(path, pasw):
     # text = input('Please, write text: ').encode('utf-8')
     token = f.encrypt(ff)
     try:
-        os.mkdir(os.getcwd()+"/CryptALL/"+"Collection")
+        os.mkdir(os.getcwd()+"/CryptALL/" + who_do_u_want_to_chat_with +"/Collection")
     except FileExistsError:
         pass
-    with open(str("CryptALL/"+'Collection/'+os.path.basename(path)+'.prcp'), 'wb') as f:
+    with open(str("CryptALL/" + who_do_u_want_to_chat_with +'/Collection/'+os.path.basename(path)+'.prcp'), 'wb') as f:
         f.write(token)
     #print(f)
 # Tk().withdraw()
@@ -445,11 +450,11 @@ def decF_byPass(path, pasw, save_file=True):
 
     #print(decrypted_fb)
     try:
-        os.mkdir(os.getcwd()+"/CryptALL/"+"Collection")
+        os.mkdir(os.getcwd()+"/CryptALL/" + who_do_u_want_to_chat_with + "/Collection")
     except FileExistsError:
         pass
     if save_file == True:
-        with open(str("CryptALL/"+'Collection/'+re.sub(r'.prcp', '', os.path.basename(path))), 'wb') as f:
+        with open(str("CryptALL/" + who_do_u_want_to_chat_with +'/Collection/'+re.sub(r'.prcp', '', os.path.basename(path))), 'wb') as f:
             f.write(decrypted)
     else:
         return decrypted
@@ -534,6 +539,74 @@ def READ(xpathInput = '', xpathClickSave = '', puthToServer = ''):
         time.sleep(0)
         #dr.close()
         return readed_text
+
+# Test that
+# print(decrypting(input(), 'Z0FBQUFBQmhkLVNWaGR5a0RhUzNtdkpTTXNlOVdQenlGSk44UVFla1NiT0trMlhkRUI3T1RFTTd6S0VKLXA5Z19VN18xUnlzOEFCMERFdUNzcnlkc0Juc0RUandObTM5eUE9PQ=='))
+
+# Creating folders for friends
+
+from os import listdir
+try:
+    friends = listdir(os.getcwd()+"/CryptALL/")
+except:
+    os.mkdir(os.getcwd() + "/CryptALL")
+friends = listdir(os.getcwd() + "/CryptALL/")
+try:
+    friends.remove('.DS_Store')
+except:
+    pass
+try:
+    friends.remove('sl.txt')
+except:
+    pass
+
+while True:
+    try:
+        if friends == []:
+            first_password = input('create password: ')
+        else:
+            first_password = getpass.getpass()
+
+
+
+
+        friends_dict = {}
+        nu = 0
+        for el in friends:
+            friends_dict.update({nu:el})
+            friends_dict.update({nu:el})
+            nu += 1
+        check_folders_for_empty = listdir(os.getcwd() + "/CryptALL/")
+        decrypted_friends = {}
+        for nu_folder in friends_dict:
+            # print(name_folder)
+            if listdir(os.getcwd() + "/CryptALL/" + friends_dict[nu_folder]) != []:
+                decrpted_name_folder = {nu_folder: decrypting(i_password=first_password, enc_text=friends_dict[nu_folder])}
+                decrypted_friends.update(decrpted_name_folder)
+        # print(decrypted_friends)
+
+
+        who_do_u_want_to_chat = input(str(decrypted_friends)+'\nwho_do_u_want_to_chat_with: ')
+
+        if who_do_u_want_to_chat in list(decrypted_friends.values()):
+            for sub in decrypted_friends:
+                if decrypted_friends[sub] == who_do_u_want_to_chat:
+                    who_do_u_want_to_chat_with = friends_dict[sub]
+            # print(who_do_u_want_to_chat_with)
+        else:
+            try:
+                int(who_do_u_want_to_chat)
+                who_do_u_want_to_chat_with = friends_dict[int(who_do_u_want_to_chat)]
+            except:
+                salt, who_do_u_want_to_chat_with = encrypting(i_password=first_password, text=who_do_u_want_to_chat)
+                # print(who_do_u_want_to_chat_with)
+        # print(who_do_u_want_to_chat_with)
+        break
+    except:
+        # print(traceback.format_exc())
+        continue
+
+
 #t
 #print(t)
 
