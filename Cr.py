@@ -3,7 +3,8 @@
 from CryptAnyL_modules import *
 import atexit
 
-
+global driver
+global pasw
 
 try:
     os.mkdir(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with)
@@ -1277,7 +1278,7 @@ try:
     root.mainloop()
 
 except:
-    # print(traceback.format_exc())
+    print(traceback.format_exc())
 
     pass
 
@@ -1289,7 +1290,7 @@ except:
 def m():
     who = 'AA'
     driver = False
-    puthToServer = ''
+    pathToServer = ''
     xpathInput = ''
     xpathClick = ''
     xpathSave = ''
@@ -1309,7 +1310,7 @@ def m():
         global link
         global xpathClick
         global xpathSave
-        global puthToServer
+        global pathToServer
 
         what_to_do = ''
 
@@ -1338,7 +1339,12 @@ def m():
     -z = encrypt the file by your password
     -Z = decrypt the file by your password
     
-    -d = creats for_driver.txt
+    -d = creates for_driver.txt | write there:_ path to empty server.txt | do the same on the friend's device | reload all script.
+        // f = dec_F_import(pasw, 'for_driver.txt').split(' ')
+        //        if f[0] == '_':
+        //            pathToServer = f[1]
+    
+    -d-del' = writes '' in for_driver.txt
     -l = chatting by for_driver.txt
     -r = random numbers
     
@@ -1386,11 +1392,17 @@ def m():
         if str(inputt) == '-l':
             what_to_do = 'continue'
             try:
+                try:
+                    pasw = first_password
+                except:
+                    pasw = getpass.getpass()
                 f = dec_F_import(pasw, 'for_driver.txt').split(' ')
                 if f[0] == '_':
-                    puthToServer = f[1]
-                    with open(puthToServer, 'r') as f:
-                        f.read()
+                    pathToServer = f[1]
+                    print('f', f)
+                    print('pathToServer', pathToServer)
+                    # driver = True
+
                 else:
                     print(f)
 
@@ -1402,10 +1414,15 @@ def m():
                         xpathClick = '//*[@id="t-formula-bar-input"]/div'
                         xpathSave = '//*[@id="docs-file-menu"]'
                     driver = True
-            except Exception as e:
+            except:
+                print(traceback.format_exc())
                 try:
                     #print(extract_tb(exc_info()[2])[0][1], e)
-                    optionsForDriver = input('Past options (pathToDr link xpathWriteOr"_"forOld xpathSaveOr"_"forOld) or _ puth to server.txt:')
+                    optionsForDriver = input('Past options (pathToDr link xpathWriteOr"_"forOld xpathSaveOr"_"forOld) or "_ puthtoserver.txt":')
+                    try:
+                        pasw = first_password
+                    except:
+                        pasw = getpass.getpass()
                     enc_F_save(pasw, optionsForDriver, 'for_driver.txt')
                     encrText = dec_F_import(pasw, 'for_driver.txt')
                     print('options saved')
@@ -1414,9 +1431,9 @@ def m():
 
                     f = dec_F_import(pasw, 'for_driver.txt').split(' ')
                     if f[0] == '_':
-                        puthToServer = f[1]
-                        with open(puthToServer, 'r') as f:
-                            f.read()
+                        pathToServer = f[1]
+                        print('pathToServer', pathToServer)
+                        # driver = True
                     else:
                         print(f)
 
@@ -1432,19 +1449,9 @@ def m():
                     print(extract_tb(exc_info()[2])[0][1], e)
                     # traceback.print_exception(*exc_info)
                     # del exc_info
+            return pathToServer
 
-            if driver == True:
-                try:
-                    DRIVE(pathToDr, link)
-                except Exception as e:
-                    #print(extract_tb(exc_info()[2])[0][1], e)
-                    # traceback.print_exception(*exc_info)
-                    # del exc_info
-                    print("Driver couldn't start, check options or version of driver")
-                    driver = False
-            else:
-                DRIVE('', '', puthToServer)
-                driver = True
+
 
         if inputt == '-f':
                 Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
@@ -1687,8 +1694,16 @@ def m():
             except:
                 pass
         if str(inputt) == '-d':
-            with open(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/for_driver.txt', 'rb') as f:
-                f.read()
+            try:
+                with open(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/for_driver.txt', 'r') as f:
+                    f.read()
+            except:
+                with open(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/for_driver.txt', 'w') as f:
+                    f.write('')
+                    uslovia('-l')
+        if str(inputt) == '-d-del':
+            with open(os.getcwd() + "/CryptALL/" + who_do_u_want_to_chat_with + '/for_driver.txt', 'w') as f:
+                f.write('')
         return what_to_do
         # continue
 
@@ -1734,8 +1749,23 @@ def m():
     try:
         with open('CryptALL/'+ who_do_u_want_to_chat_with + '/for_driver.txt', 'r') as f:
             for_drive = f.read()
-        uslovia('-l')
+        pathToServer = uslovia('-l')
+        if driver == False:
+            print('pathToServer', pathToServer)
+            DRIVE('', '', pathToServer)
+            driver = True
+        else:
+            try:
+                DRIVE(pathToDr, link)
+            except:
+                print(traceback.format_exc())
+                # print(extract_tb(exc_info()[2])[0][1], e)
+                # traceback.print_exception(*exc_info)
+                # del exc_info
+                print("Driver couldn't start, check options or version of driver")
+                driver = False
     except:
+        print(traceback.format_exc())
         pass
 
     pubkeyFromFile = b64in(dec_F_import(pasw, 'publicresAA.txt'))
@@ -1752,34 +1782,34 @@ def m():
             # print(extract_tb(exc_info()[2])[0][1], e)
             if driver == True:
                 # Connecting. Swap keys.
-                INP_Fkeys = READ(xpathClick, xpathSave, puthToServer)
+                INP_Fkeys = READ(xpathClick, xpathSave, pathToServer)
                 if ',kkk' in INP_Fkeys:
                     if INP_Fkeys.split(',')[0] != pubkeyFromFile:
                         INP_Fkeys = INP_Fkeys.split(',')[0]
                         WRITE(str(pubkeyFromFile + ',kkk'), xpathClick,
-                              xpathSave, puthToServer)
+                              xpathSave, pathToServer)
                     if INP_Fkeys.split(',')[0] == pubkeyFromFile:
                         print('waiting other key')
-                        CHeck = READ(xpathClick, xpathSave, puthToServer)
+                        CHeck = READ(xpathClick, xpathSave, pathToServer)
                         while CHeck == pubkeyFromFile:
                             print('waiting other key')
-                            CHeck = READ(xpathClick, xpathSave, puthToServer)
+                            CHeck = READ(xpathClick, xpathSave, pathToServer)
                         else:
                             NP_Fkeys = INP_Fkeys.split(',')[0]
                 elif ',kkk' not in INP_Fkeys:
                     print('waiting other key')
-                    WRITE(str(pubkeyFromFile + ',kkk'), xpathClick, xpathSave, puthToServer)
+                    WRITE(str(pubkeyFromFile + ',kkk'), xpathClick, xpathSave, pathToServer)
                     time.sleep(3)
-                    CHeck = READ(xpathClick, xpathSave, puthToServer)
+                    CHeck = READ(xpathClick, xpathSave, pathToServer)
                     while ',kkk' not in CHeck:
                         print('waiting other key')
                         time.sleep(3)
-                        CHeck = READ(xpathClick, xpathSave, puthToServer)
+                        CHeck = READ(xpathClick, xpathSave, pathToServer)
                     if ',kkk' in CHeck:
                         while CHeck.split(',')[0] == pubkeyFromFile:
                             print('waiting other key')
                             time.sleep(3)
-                            CHeck = READ(xpathClick, xpathSave, puthToServer)
+                            CHeck = READ(xpathClick, xpathSave, pathToServer)
                         if CHeck.split(',')[0] != pubkeyFromFile:
                             INP_Fkeys = CHeck.split(',')[0]
             else:
@@ -1798,6 +1828,7 @@ def m():
     q3 = True
     while q3 == True:
         try:
+            # print('driver', driver)
             INP_sent = input(str('\nWrite your message:\n'))
 
             usl = uslovia(INP_sent)
@@ -1818,17 +1849,17 @@ def m():
 
                 print(str('\nSent this text to your friend:\n\n'), myEncryptM)
                 if driver == True:
-                    WRITE(myEncryptM, xpathClick, xpathSave, puthToServer)
+                    WRITE(myEncryptM, xpathClick, xpathSave, pathToServer)
                 else:
                     INP_Fmessage = input('\npast here friends encrypted message:\n')
-
+            # print('driver', driver)
             if driver == True:
-                INP_Fmessage = READ(xpathClick, xpathSave, puthToServer)
+                INP_Fmessage = READ(xpathClick, xpathSave, pathToServer)
                 while INP_Fmessage == myEncryptM:
                     time.sleep(2)
-                    INP_Fmessage = READ(xpathClick, xpathSave, puthToServer)
+                    INP_Fmessage = READ(xpathClick, xpathSave, pathToServer)
                 else:
-                    INP_Fmessage = READ(xpathClick, xpathSave, puthToServer)
+                    INP_Fmessage = READ(xpathClick, xpathSave, pathToServer)
             else:
                 pass
 
@@ -1850,7 +1881,7 @@ def m():
                     print(":(")
                 print(str(F_encrypted_m))
         except:
-            # print(traceback.format_exc())
+            print(traceback.format_exc())
             #print("Ошибка: %s : %s" % (e, e.strerror))
             # traceback.print_exception(*exc_info)
             # del exc_info
@@ -1869,7 +1900,7 @@ while number_of_Error != 10:
 
             os.remove(re.sub('.prcp', '', path_to_auto_open_file))
         except:
-            # print(traceback.format_exc())
+            print(traceback.format_exc())
             pass
         continue
 
