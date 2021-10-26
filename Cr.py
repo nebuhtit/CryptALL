@@ -1374,7 +1374,7 @@ def m():
                     createNewkeys('AA', pasw)
                     pubkeyFromFile = b64in(dec_F_import(pasw, 'publicresAA.txt'))
                     print('created')
-                    print('Your public key:', pubkeyFromFile, '\nsent it to your friend')
+                    print('Your public key:\n', pubkeyFromFile, '\nsent it to your friend')
                     # WRITE(pubkeyFromFile, xpathClick, xpathSave)
                     what_to_do = 'continue'
                     # return what_to_do
@@ -1616,12 +1616,15 @@ def m():
 
             while q == True:
                 try:
-                    pasw = getpass.getpass()
+                    try:
+                        pasw = first_password
+                    except:
+                        pasw = getpass.getpass()
                     pubkeyFromFile = b64in(dec_F_import(pasw, 'publicres' + who + '.txt'))
                     # print('Your public key:', pubkeyFromFile, '\nsent it to your friend')
                     q0 = False
                     what_to_do = 'break'
-                    print('Your public key:', pubkeyFromFile, '\nsent it to your friend')
+                    print('Your public key:\n', pubkeyFromFile, '\nsent it to your friend')
                     break
                     # return pasw, what_to_do
                 except FileNotFoundError as e:
@@ -1704,7 +1707,10 @@ def m():
     q0 = True
     while q0 == True:
         try:
-            pasw = getpass.getpass()
+            try:
+                pasw = first_password
+            except:
+                pasw = getpass.getpass()
             usl = uslovia(pasw)
             if usl == 'continue':
                 continue
@@ -1715,7 +1721,10 @@ def m():
             break
         except NameError as e:
             print(extract_tb(exc_info()[2])[0][1], e)
-            pasw = getpass.getpass()
+            try:
+                pasw = first_password
+            except:
+                pasw = getpass.getpass()
             continue
         except Exception as e:
             print(extract_tb(exc_info()[2])[0][1], e)
@@ -1774,7 +1783,7 @@ def m():
                         if CHeck.split(',')[0] != pubkeyFromFile:
                             INP_Fkeys = CHeck.split(',')[0]
             else:
-                INP_Fkeys = re.sub(r'\s', '', input("Past here friend's public key\n:"))
+                INP_Fkeys = re.sub(r'\s', '', input("Past here friend's public key:\n"))
 
             usl = uslovia(INP_Fkeys)
             if usl == 'continue':
@@ -1789,7 +1798,7 @@ def m():
     q3 = True
     while q3 == True:
         try:
-            INP_sent = input(str('Write your message:'))
+            INP_sent = input(str('\nWrite your message:\n'))
 
             usl = uslovia(INP_sent)
             if usl == 'continue':
@@ -1807,11 +1816,11 @@ def m():
                 myEncryptM = en(INP_sent, INP_Fkeys)
                 INP_Fkeys = b64in(INP_Fkeys)
 
-                print(str('Sent this text to your friend:'), myEncryptM)
+                print(str('\nSent this text to your friend:\n\n'), myEncryptM)
                 if driver == True:
                     WRITE(myEncryptM, xpathClick, xpathSave, puthToServer)
                 else:
-                    INP_Fmessage = input('past here friends encrypted message\n:')
+                    INP_Fmessage = input('\npast here friends encrypted message:\n')
 
             if driver == True:
                 INP_Fmessage = READ(xpathClick, xpathSave, puthToServer)
@@ -1822,7 +1831,7 @@ def m():
                     INP_Fmessage = READ(xpathClick, xpathSave, puthToServer)
             else:
                 pass
-    #
+
             if INP_Fmessage == '':
                 continue
             usl = uslovia(INP_Fmessage)
